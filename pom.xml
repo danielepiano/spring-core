@@ -12,7 +12,7 @@
 
 	<groupId>com.dp.spring</groupId>
 	<artifactId>spring-core</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<name>spring-core</name>
 	<description>Core Spring functionalities</description>
 
