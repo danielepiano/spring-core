@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +22,7 @@ import java.util.Objects;
  * @param <ID>   Entity ID type.
  */
 @MappedSuperclass
-@Getter @Setter
+@Getter @Setter @Accessors(chain = true)
 @NoArgsConstructor @AllArgsConstructor
 public abstract class BaseEntity<ID extends Serializable> {
     @Id @GeneratedValue( strategy = GenerationType.IDENTITY )

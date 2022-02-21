@@ -2,6 +2,7 @@ package com.dp.spring.springcore.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -22,7 +23,7 @@ import java.io.Serializable;
  * @param <ID>   Entity ID type.
  */
 @MappedSuperclass
-@Getter @Setter
+@Getter @Setter @Accessors(chain = true)
 public abstract class SoftDelAudEntity<ID extends Serializable> extends AudEntity<ID>{
     @Column( name = "is_active" )
     private Boolean active = Boolean.TRUE;

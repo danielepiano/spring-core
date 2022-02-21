@@ -3,6 +3,7 @@ package com.dp.spring.springcore.entities;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -24,7 +25,7 @@ import java.util.Date;
  */
 @MappedSuperclass
 @EntityListeners( AuditingEntityListener.class )
-@Getter @Setter
+@Getter @Setter @Accessors(chain = true)
 public abstract class AudEntity<ID extends Serializable> extends BaseEntity<ID> {
     @CreatedBy
     @Column( name = "created_by" )
