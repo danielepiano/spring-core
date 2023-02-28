@@ -1,14 +1,8 @@
 package com.dp.spring.springcore.v2.handlers;
 
-import com.dp.spring.springcore.v2.exceptions.BaseExceptionConstants;
 import com.dp.spring.springcore.v2.exceptions.BusinessException;
-import com.dp.spring.springcore.v2.exceptions.Error;
-import com.dp.spring.springcore.v2.handlers.strategies.CensorAsInternalServerErrorHandlingStrategy;
-import com.dp.spring.springcore.v2.handlers.strategies.CensorErrorDetailHandlingStrategy;
-import com.dp.spring.springcore.v2.handlers.strategies.HandlingExceptionStrategy;
-import com.dp.spring.springcore.v2.handlers.strategies.PreserveErrorsInformationHandlingStrategy;
+import com.dp.spring.springcore.v2.handlers.strategies.*;
 import com.dp.spring.springcore.v2.model.ErrorModel;
-import com.dp.spring.springcore.v2.utils.HttpUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +12,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.stream.Collectors;
 
 /**
  * Basic exceptions handler definition.
@@ -44,7 +36,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      * @return the appropriate response according to the
      */
     private ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
-        if ( this.strategy != null && e != null) {
+        if ( this.strategy != null  &&  e != null) {
             return this.strategy.handle(e, status);
         }
         return null;
@@ -87,12 +79,8 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      */
     @ExceptionHandler
     public ResponseEntity<ErrorModel> handleAccessDeniedException(AccessDeniedException e) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(new ErrorModel(
-                        HttpUtils.getFullURIFromCurrentRequest(),
-                        HttpStatus.FORBIDDEN,
-                        BaseExceptionConstants.ACCESS_DENIED.buildError()
-                ));
+        this.strategy = AccessDeniedHandlingStrategy.getInstance();
+        return this.handle(e, null);
     }
 
     /**
@@ -103,18 +91,8 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      */
     @ExceptionHandler
     protected ResponseEntity<ErrorModel> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(new ErrorModel(
-                        HttpUtils.getFullURIFromCurrentRequest(),
-                        HttpStatus.BAD_REQUEST,
-                        e.getFieldErrors().stream()
-                                .map(error -> new Error(
-                                        BaseExceptionConstants.VALIDATION_EXCEPTION.getCode(),
-                                        BaseExceptionConstants.VALIDATION_EXCEPTION.getTitle(),
-                                        String.format( BaseExceptionConstants.VALIDATION_EXCEPTION.getDetail(),
-                                                error.getField(), error.getDefaultMessage())
-                                )).collect(Collectors.toSet())
-                ));
+        this.strategy = ValidationErrorsHandlingStrategy.getInstance();
+        return this.handle(e, null);
     }
 
 

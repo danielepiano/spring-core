@@ -12,10 +12,9 @@ import org.springframework.http.ResponseEntity;
  *     <li>{@link CensorAsInternalServerErrorHandlingStrategy}</li>
  *     <li>{@link CensorErrorDetailHandlingStrategy}</li>
  *     <li>{@link PreserveErrorsInformationHandlingStrategy}</li>
+ *     <li>{@link ValidationErrorsHandlingStrategy}</li>
+ *     <li></li>
  * </ul>
- * SPRING_HANDLED
- * PRESERVE
- * VALIDATION
  */
 public interface HandlingExceptionStrategy {
     ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status);

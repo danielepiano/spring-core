@@ -27,7 +27,7 @@ public final class PreserveErrorsInformationHandlingStrategy implements Handling
 
     @Override
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
-        // If the exception is a BusinessException, status is in .getStatus() information is in .getErrors()
+        // In case of a BusinessException, status is in .getStatus() information is in .getErrors()
         if (e instanceof BusinessException be) {
             return ResponseEntity.status( be.getStatus() )
                     .body( new ErrorModel(

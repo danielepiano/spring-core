@@ -26,10 +26,12 @@ public final class CensorAsInternalServerErrorHandlingStrategy implements Handli
 
     @Override
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        var finalStatus = (status != null) ? status : HttpStatus.INTERNAL_SERVER_ERROR;
+
+        return ResponseEntity.status(finalStatus)
                 .body( new ErrorModel(
                         HttpUtils.getFullURIFromCurrentRequest(),
-                        HttpStatus.INTERNAL_SERVER_ERROR,
+                        finalStatus,
                         BaseExceptionConstants.INTERNAL_SERVER_ERROR.buildError()
                 ));
     }
