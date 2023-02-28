@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
  *     <li>{@link CensorErrorDetailHandlingStrategy}</li>
  *     <li>{@link PreserveErrorsInformationHandlingStrategy}</li>
  *     <li>{@link ValidationErrorsHandlingStrategy}</li>
- *     <li></li>
+ *     <li>{@link AccessDeniedHandlingStrategy}</li>
  * </ul>
  */
 public interface HandlingExceptionStrategy {
