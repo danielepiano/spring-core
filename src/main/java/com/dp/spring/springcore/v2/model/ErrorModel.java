@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import java.util.Set;
 
 /**
- * Model accompanying a HTTP response in case of any kind of error.
+ * Model accompanying an HTTP response in case of any kind of error.
  * @param self      the full current request URL, that triggered the errors
  * @param status    the synthetic string representation of the response status: fail|error|generic
  * @param errors    the errors found
