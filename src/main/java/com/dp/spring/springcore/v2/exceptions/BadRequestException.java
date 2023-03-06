@@ -1,12 +1,13 @@
 package com.dp.spring.springcore.v2.exceptions;
 
+import com.dp.spring.springcore.v2.model.error.Error;
 import org.springframework.http.HttpStatus;
 
 import java.util.Set;
 
 /**
  * General 400 - BAD REQUEST exception to be thrown in business services.
- * It is preferable to extend this class with custom exceptions.
+ * It is preferable that domain custom 400 exceptions extend this class.
  */
 public class BadRequestException extends BusinessException {
     public BadRequestException(Error error) {

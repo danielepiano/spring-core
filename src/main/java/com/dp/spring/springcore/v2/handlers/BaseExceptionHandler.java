@@ -2,7 +2,7 @@ package com.dp.spring.springcore.v2.handlers;
 
 import com.dp.spring.springcore.v2.exceptions.BusinessException;
 import com.dp.spring.springcore.v2.handlers.strategies.*;
-import com.dp.spring.springcore.v2.model.ErrorModel;
+import com.dp.spring.springcore.v2.model.error.ErrorModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      * @return the appropriate response according to the
      */
     private ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
-        if ( this.strategy != null  &&  e != null) {
+        if ( this.strategy != null  &&  e != null ) {
             return this.strategy.handle(e, status);
         }
         return null;
@@ -63,7 +63,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
     @ExceptionHandler
     public ResponseEntity<ErrorModel> handleBusinessException(BusinessException e) {
         if ( e.getStatus().is5xxServerError() ) {
-            this.strategy = CensorErrorDetailHandlingStrategy.getInstance();
+            this.strategy = CensorErrorsDetailHandlingStrategy.getInstance();
         }
         else {
             this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
@@ -113,7 +113,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
                                                              HttpStatus status, WebRequest request) {
         // In case of server errors, do not show detail information
         if ( status.is5xxServerError() ) {
-            this.strategy = CensorErrorDetailHandlingStrategy.getInstance();
+            this.strategy = CensorErrorsDetailHandlingStrategy.getInstance();
         }
         else { // In case of client errors, preserve the errors' information
             this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();

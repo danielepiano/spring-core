@@ -1,9 +1,8 @@
 package com.dp.spring.springcore.v2.handlers.strategies;
 
 import com.dp.spring.springcore.v2.exceptions.BusinessException;
-import com.dp.spring.springcore.v2.exceptions.Error;
-import com.dp.spring.springcore.v2.model.ErrorModel;
-import com.dp.spring.springcore.v2.utils.HttpUtils;
+import com.dp.spring.springcore.v2.model.error.Error;
+import com.dp.spring.springcore.v2.model.error.ErrorModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -31,7 +30,6 @@ public final class PreserveErrorsInformationHandlingStrategy implements Handling
         if (e instanceof BusinessException be) {
             return ResponseEntity.status( be.getStatus() )
                     .body( new ErrorModel(
-                            HttpUtils.getFullURIFromCurrentRequest(),
                             be.getStatus(),
                             be.getErrors()
                             ));
@@ -39,7 +37,6 @@ public final class PreserveErrorsInformationHandlingStrategy implements Handling
         else { // In case of generic Exceptions, deduce title from status and detail from exception message
             return ResponseEntity.status(status)
                     .body( new ErrorModel(
-                            HttpUtils.getFullURIFromCurrentRequest(),
                             status,
                             new Error(null, status.getReasonPhrase(), e.getMessage())
                     ));

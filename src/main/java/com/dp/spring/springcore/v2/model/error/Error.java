@@ -1,4 +1,4 @@
-package com.dp.spring.springcore.v2.exceptions;
+package com.dp.spring.springcore.v2.model.error;
 
 import java.util.Objects;
 

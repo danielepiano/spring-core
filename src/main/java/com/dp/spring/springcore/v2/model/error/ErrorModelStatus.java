@@ -1,5 +1,6 @@
-package com.dp.spring.springcore.v2.model;
+package com.dp.spring.springcore.v2.model.error;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.http.HttpStatus;
 
 public enum ErrorModelStatus {
@@ -13,17 +14,18 @@ public enum ErrorModelStatus {
         this.value = value;
     }
 
+    @JsonValue
     public String value() {
         return this.value;
     }
 
-    public static String valueOf(final HttpStatus status) {
+    public static ErrorModelStatus valueOf(final HttpStatus status) {
         if (status.is4xxClientError()) {
-            return FAIL.value();
+            return FAIL;
         }
         if (status.is5xxServerError()) {
-            return ERROR.value();
+            return ERROR;
         }
-        return GENERIC.value();
+        return GENERIC;
     }
 }

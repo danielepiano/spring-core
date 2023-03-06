@@ -1,5 +1,7 @@
 package com.dp.spring.springcore.v2.exceptions;
 
+import com.dp.spring.springcore.v2.model.error.Error;
+
 /**
  * Invoking the constructor of a private method should be forbidden.
  * <br>

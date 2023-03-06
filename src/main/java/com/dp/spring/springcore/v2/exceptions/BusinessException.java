@@ -1,5 +1,6 @@
 package com.dp.spring.springcore.v2.exceptions;
 
+import com.dp.spring.springcore.v2.model.error.Error;
 import org.springframework.http.HttpStatus;
 
 import java.util.Set;
@@ -7,7 +8,7 @@ import java.util.Set;
 /**
  * General business exception to be thrown in business services.
  * <br>
- * It is preferable to extend this class or a subclass of it, with custom exceptions.
+ * It is preferable that domain custom exceptions extend this class.
  */
 public class BusinessException extends RuntimeException {
     protected final HttpStatus status;

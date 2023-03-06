@@ -1,6 +1,6 @@
 package com.dp.spring.springcore.v2.exceptions.examples;
 
-import com.dp.spring.springcore.v2.exceptions.Error;
+import com.dp.spring.springcore.v2.model.error.Error;
 import com.dp.spring.springcore.v2.exceptions.ResourceNotFoundException;
 
 /**

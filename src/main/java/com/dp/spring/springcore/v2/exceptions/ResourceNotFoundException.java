@@ -1,5 +1,6 @@
 package com.dp.spring.springcore.v2.exceptions;
 
+import com.dp.spring.springcore.v2.model.error.Error;
 import org.springframework.http.HttpStatus;
 
 import java.util.Set;
@@ -7,7 +8,7 @@ import java.util.Set;
 /**
  * General 404 - NOT FOUND exception to be thrown in business services.
  * <br>
- * It is preferable to extend this class with custom exceptions.
+ * It is preferable that domain custom 404 exceptions extend this class.
  */
 public class ResourceNotFoundException extends BusinessException {
     public ResourceNotFoundException(Error error) {

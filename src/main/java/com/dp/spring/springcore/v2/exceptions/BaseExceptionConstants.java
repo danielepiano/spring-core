@@ -1,5 +1,7 @@
 package com.dp.spring.springcore.v2.exceptions;
 
+import com.dp.spring.springcore.v2.model.error.Error;
+
 /**
  * Constants for provided base exceptions.
  */

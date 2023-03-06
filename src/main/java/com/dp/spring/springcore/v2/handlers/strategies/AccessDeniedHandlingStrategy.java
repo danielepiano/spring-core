@@ -1,8 +1,7 @@
 package com.dp.spring.springcore.v2.handlers.strategies;
 
 import com.dp.spring.springcore.v2.exceptions.BaseExceptionConstants;
-import com.dp.spring.springcore.v2.model.ErrorModel;
-import com.dp.spring.springcore.v2.utils.HttpUtils;
+import com.dp.spring.springcore.v2.model.error.ErrorModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -32,7 +31,6 @@ public final class AccessDeniedHandlingStrategy implements HandlingExceptionStra
         if ( e instanceof AccessDeniedException ) {
             return ResponseEntity.status(finalStatus)
                     .body(new ErrorModel(
-                            HttpUtils.getFullURIFromCurrentRequest(),
                             finalStatus,
                             BaseExceptionConstants.ACCESS_DENIED.buildError()
                     ));

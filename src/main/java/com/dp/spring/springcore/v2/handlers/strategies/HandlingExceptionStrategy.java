@@ -1,6 +1,6 @@
 package com.dp.spring.springcore.v2.handlers.strategies;
 
-import com.dp.spring.springcore.v2.model.ErrorModel;
+import com.dp.spring.springcore.v2.model.error.ErrorModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
  * Existing strategies:
  * <ul>
  *     <li>{@link CensorAsInternalServerErrorHandlingStrategy}</li>
- *     <li>{@link CensorErrorDetailHandlingStrategy}</li>
+ *     <li>{@link CensorErrorsDetailHandlingStrategy}</li>
  *     <li>{@link PreserveErrorsInformationHandlingStrategy}</li>
  *     <li>{@link ValidationErrorsHandlingStrategy}</li>
  *     <li>{@link AccessDeniedHandlingStrategy}</li>
