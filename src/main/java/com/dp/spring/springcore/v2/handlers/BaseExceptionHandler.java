@@ -1,8 +1,10 @@
 package com.dp.spring.springcore.v2.handlers;
 
 import com.dp.spring.springcore.v2.exceptions.BusinessException;
+import com.dp.spring.springcore.v2.exceptions.ServiceUnavailableException;
 import com.dp.spring.springcore.v2.handlers.strategies.*;
 import com.dp.spring.springcore.v2.model.error.ErrorModel;
+import feign.RetryableException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,6 +95,18 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
     protected ResponseEntity<ErrorModel> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         this.strategy = ValidationErrorsHandlingStrategy.getInstance();
         return this.handle(e, null);
+    }
+
+    /**
+     * {@link RetryableException}s are typically triggered by temporary problems that could be resolved later,
+     * such as microservices connection problems or network problems.
+     * @param e the exception to handle
+     * @return the appropriate response
+     */
+    @ExceptionHandler
+    protected ResponseEntity<ErrorModel> handleRetryableException(RetryableException e) {
+        this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
+        return this.handle(new ServiceUnavailableException(),  HttpStatus.SERVICE_UNAVAILABLE);
     }
 
 

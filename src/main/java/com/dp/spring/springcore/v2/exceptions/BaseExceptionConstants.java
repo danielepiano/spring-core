@@ -10,6 +10,7 @@ public enum BaseExceptionConstants {
     INTERNAL_SERVER_ERROR("ISE-000", "INTERNAL SERVER ERROR", "No details available."),
     UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR("ISE-001", "UNSUPPORTED OPERATION",
             "This class should not be instantiated."),
+    SERVICE_UNAVAILABLE("ISE-002", "SERVICE UNAVAILABLE", "Could not contact some services."),
 
 
     // ########## CLIENT ERRORS ##########
