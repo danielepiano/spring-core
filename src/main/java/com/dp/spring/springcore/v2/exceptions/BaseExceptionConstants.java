@@ -14,8 +14,8 @@ public enum BaseExceptionConstants {
 
 
     // ########## CLIENT ERRORS ##########
-    ACCESS_DENIED("CLI-001", "ACCESS DENIED", "Unauthorized."),
-    VALIDATION_EXCEPTION("CLI-002", "VALIDATION EXCEPTION", "Field '%s': %s");
+    ACCESS_DENIED("BAD-001", "ACCESS DENIED", "Unauthorized."),
+    VALIDATION_EXCEPTION("BAD-002", "VALIDATION EXCEPTION", "Field '%s': %s");
 
 
 

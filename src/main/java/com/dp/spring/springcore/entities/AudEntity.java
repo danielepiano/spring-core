@@ -25,24 +25,25 @@ import java.util.Date;
  */
 @MappedSuperclass
 @EntityListeners( AuditingEntityListener.class )
-@Getter @Setter @Accessors(chain = true)
+@Accessors(chain = true)
 public abstract class AudEntity<ID extends Serializable> extends BaseEntity<ID> {
     @CreatedBy
     @Column( name = "created_by" )
+    @Getter
     private String createdBy;
 
     @CreatedDate @Temporal(TemporalType.TIMESTAMP)
     @Column( name = "created_date" )
-    @Setter( AccessLevel.PRIVATE )
+    @Getter @Setter( AccessLevel.PRIVATE )
     private Date createdDate;
 
     @LastModifiedBy
     @Column( name = "last_modified_by" )
-    @Setter( AccessLevel.PRIVATE )
+    @Getter @Setter( AccessLevel.PRIVATE )
     private String lastModifiedBy;
 
     @LastModifiedDate @Temporal(TemporalType.TIMESTAMP)
     @Column( name = "last_modified_date" )
-    @Setter( AccessLevel.PRIVATE )
+    @Getter @Setter( AccessLevel.PRIVATE )
     private Date lastModifiedDate;
 }

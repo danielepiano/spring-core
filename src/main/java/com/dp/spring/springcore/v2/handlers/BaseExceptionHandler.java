@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  *     <li>Create:     <i>@{@link ControllerAdvice} ConcreteExceptionHandler extends {@link BaseExceptionHandler}</i></li>
  * </ul>
  */
+@ControllerAdvice
 public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Strategy to use to handle the exception caught.
@@ -88,13 +89,19 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
     /**
      * {@link MethodArgumentNotValidException}s are typically triggered when there are validation errors in the
      * arguments of a method in a Spring MVC controller (e.g. required or not valid fields).
+     * <br>
+     * Override in order to return a body consistent with {@link ErrorModel}.
      * @param e the exception to handle
      * @return the appropriate response
      */
-    @ExceptionHandler
-    protected ResponseEntity<ErrorModel> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
         this.strategy = ValidationErrorsHandlingStrategy.getInstance();
-        return this.handle(e, null);
+        var response = this.handle(e, status);
+        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, status);
     }
 
     /**

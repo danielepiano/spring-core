@@ -12,5 +12,6 @@ import java.io.Serializable;
  * @param <ID>  Entity ID type.
  */
 @NoRepositoryBean
-public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializable>      extends JpaRepository<T, ID> {
+public interface BaseRepository<T extends BaseEntity<ID>, ID extends Serializable>
+        extends JpaRepository<T, ID> {
 }
