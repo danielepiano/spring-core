@@ -14,9 +14,9 @@
 
 	<groupId>com.dp.spring</groupId>
 	<artifactId>spring-core</artifactId>
-	<version>0.1.3-SNAPSHOT</version>
+	<version>0.1.3</version>
 	<name>spring-core</name>
-	<description>Core Spring functionalities</description>
+	<description>Core Spring features</description>
 
 
 	<properties>
