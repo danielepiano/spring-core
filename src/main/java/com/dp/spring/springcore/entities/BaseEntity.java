@@ -1,19 +1,18 @@
 package com.dp.spring.springcore.entities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * "Super-entity" to extend in order to inherit basic fields and methods.
  * Overridable callback methods.
- *
  * [JPA specification related to @Pre/@Post features]
  * In general, the lifecycle method of a portable application should not invoke EntityManager or Query operations,
  * access other entity instances, or modify relationships within the same persistence context.

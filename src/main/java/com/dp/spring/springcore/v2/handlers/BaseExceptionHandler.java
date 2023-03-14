@@ -7,6 +7,7 @@ import com.dp.spring.springcore.v2.model.error.ErrorModel;
 import feign.RetryableException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -92,16 +93,19 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      * <br>
      * Override in order to return a body consistent with {@link ErrorModel}.
      * @param e the exception to handle
+     * @param headers the response headers up to that moment
+     * @param statusCode the status code designated by {@link ResponseEntityExceptionHandler}
+     * @param request the request
      * @return the appropriate response
      */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
                                                                   HttpHeaders headers,
-                                                                  HttpStatus status,
+                                                                  HttpStatusCode statusCode,
                                                                   WebRequest request) {
         this.strategy = ValidationErrorsHandlingStrategy.getInstance();
-        var response = this.handle(e, status);
-        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, status);
+        var response = this.handle(e, HttpStatus.valueOf(statusCode.value()));
+        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, statusCode);
     }
 
     /**
@@ -117,6 +121,7 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
     }
 
 
+
     /**
      * Exception whose handling is managed by Spring with {@link ResponseEntityExceptionHandler} and not override,
      * finally invoke this method.
@@ -125,21 +130,21 @@ public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandle
      * @param ex the exception to handle
      * @param body the response body up to that moment
      * @param headers the response headers up to that moment
-     * @param status the status code designated by {@link ResponseEntityExceptionHandler}
+     * @param statusCode the status code designated by {@link ResponseEntityExceptionHandler}
      * @param request the request
      * @return the appropriate response
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
-                                                             HttpStatus status, WebRequest request) {
+                                                             HttpStatusCode statusCode, WebRequest request) {
         // In case of server errors, do not show detail information
-        if ( status.is5xxServerError() ) {
+        if ( statusCode.is5xxServerError() ) {
             this.strategy = CensorErrorsDetailHandlingStrategy.getInstance();
         }
         else { // In case of client errors, preserve the errors' information
             this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
         }
-        var response = this.handle(ex, status);
-        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, status);
+        var response = this.handle(ex, HttpStatus.valueOf(statusCode.value()));
+        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, statusCode);
     }
 }

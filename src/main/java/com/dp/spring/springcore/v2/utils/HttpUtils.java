@@ -1,12 +1,11 @@
 package com.dp.spring.springcore.v2.utils;
 
 import com.dp.spring.springcore.v2.exceptions.UnsupportedCallToPrivateConstructor;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Utility methods for HTTP request and responses.

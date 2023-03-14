@@ -1,8 +1,8 @@
 package com.dp.spring.springcore.v2.model.success.examples;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 public class SampleDTO {
     @NotBlank
