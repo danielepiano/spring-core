@@ -14,7 +14,7 @@ public enum BaseExceptionConstants {
 
 
     // ########## CLIENT ERRORS ##########
-    ACCESS_DENIED("BAD-001", "ACCESS DENIED", "Unauthorized."),
+    ACCESS_DENIED("BAD-001", "ACCESS DENIED", "You are not authorized to access this resource."),
     VALIDATION_EXCEPTION("BAD-002", "VALIDATION EXCEPTION", "Field '%s': %s");
 
 

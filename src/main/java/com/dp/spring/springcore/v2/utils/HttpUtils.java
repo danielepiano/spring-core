@@ -30,7 +30,10 @@ public final class HttpUtils {
     public static String getRelativeURIFromCurrentRequest() {
         HttpServletRequest currentRequest = getCurrentRequest();
         if ( currentRequest != null ){
-            return currentRequest.getRequestURI() + "?" + currentRequest.getQueryString();
+            final String queryString = currentRequest.getQueryString() != null
+                    ? "?" + currentRequest.getQueryString()
+                    : "";
+            return currentRequest.getRequestURI() + queryString;
         }
         return null;
     }

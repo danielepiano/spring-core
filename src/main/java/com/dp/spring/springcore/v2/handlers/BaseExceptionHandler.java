@@ -17,18 +17,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * Basic exceptions handler definition.
+ * Base exceptions handler definition.
  * <br>
  * If an exception occurs due to a server error, the related information is omitted for security reasons.
  * <br><br>
- * ! In order to use this configuration, you have to
- * <ul>
- *     <li>Set:        <i>spring.mvc.throw-exception-if-no-handler-found=true in application.properties</i></li>
- *     <li>Create:     <i>@{@link ControllerAdvice} ConcreteExceptionHandler extends {@link BaseExceptionHandler}</i></li>
- * </ul>
+ * ** Please, in order to use this configuration, set: <br>
+ * <i>spring.mvc.throw-exception-if-no-handler-found=true</i> in <i>application.properties</i>
  */
 @ControllerAdvice
-public abstract class BaseExceptionHandler extends ResponseEntityExceptionHandler {
+public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Strategy to use to handle the exception caught.
      */

@@ -8,7 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 /**
- * Body model of an HTTP request including a body, or an HTTP response in case of successful request elaboration.
+ * Body model of either an HTTP request including a body, or an HTTP response in case of successful request elaboration.
  * @param <T> the domain custom DTO class
  */
 @Getter @Setter
