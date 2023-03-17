@@ -31,7 +31,7 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter(AccessLevel.PRIVATE) @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true) @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditedEntity<ID extends Serializable>
         extends BaseEntity<ID> {
@@ -50,4 +50,14 @@ public abstract class AuditedEntity<ID extends Serializable>
     @LastModifiedDate
     @Column(nullable = false)
     protected long lastModifiedDate;
+
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + ", createdBy=" + createdBy
+                + ", createdDate=" + createdDate
+                + ", lastModifiedBy=" + lastModifiedBy
+                + ", lastModifiedDate=" + lastModifiedDate;
+    }
 }

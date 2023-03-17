@@ -36,7 +36,7 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true) @ToString(callSuper = true) @Where(clause = "is_active IS true")
+@EqualsAndHashCode(callSuper = true)
 public abstract class SoftDeletableAuditedEntity<ID extends Serializable> extends AuditedEntity<ID> {
     public static final String SOFT_DELETE_CLAUSE = "is_active IS true";
 
@@ -44,4 +44,11 @@ public abstract class SoftDeletableAuditedEntity<ID extends Serializable> extend
     @Column(name = "is_active")
     @ColumnDefault("true")
     protected boolean active = true;
+
+
+    @Override
+    public String toString() {
+        return super.toString()
+                + ", active=" + active;
+    }
 }

@@ -20,7 +20,7 @@ import java.io.Serializable;
 @SuperBuilder
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter(AccessLevel.PRIVATE) @Accessors(chain = true)
-@EqualsAndHashCode @ToString
+@EqualsAndHashCode
 public abstract class BaseEntity<ID extends Serializable> {
     @Id @GeneratedValue( strategy = GenerationType.IDENTITY )
     protected ID id;
@@ -60,4 +60,10 @@ public abstract class BaseEntity<ID extends Serializable> {
         this.postRemoveCallback();
     }
     protected void postRemoveCallback() {}
+
+
+    @Override
+    public String toString() {
+        return "id=" + id;
+    }
 }
