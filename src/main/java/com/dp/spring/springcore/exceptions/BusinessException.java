@@ -15,25 +15,25 @@ public class BusinessException extends RuntimeException {
     protected final Set<Error> errors;
 
     public BusinessException(final HttpStatus status, final Error error) {
-        super( error.toString() );
+        super(error.toString());
         this.status = status;
         this.errors = Set.of(error);
     }
 
     public BusinessException(final HttpStatus status, final Error error, final Throwable cause) {
-        super( error.toString(), cause );
+        super(error.toString(), cause);
         this.status = status;
         this.errors = Set.of(error);
     }
 
     public BusinessException(final HttpStatus status, final Set<Error> errors) {
-        super( errors.toString() );
+        super(errors.toString());
         this.status = status;
         this.errors = errors;
     }
 
     public BusinessException(final HttpStatus status, final Set<Error> errors, final Throwable cause) {
-        super( errors.toString(), cause );
+        super(errors.toString(), cause);
         this.status = status;
         this.errors = errors;
     }

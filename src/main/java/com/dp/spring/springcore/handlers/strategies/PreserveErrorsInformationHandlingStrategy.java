@@ -12,13 +12,14 @@ import org.springframework.http.ResponseEntity;
 public final class PreserveErrorsInformationHandlingStrategy implements HandlingExceptionStrategy {
     private static PreserveErrorsInformationHandlingStrategy instance;
 
-    private PreserveErrorsInformationHandlingStrategy() {}
+    private PreserveErrorsInformationHandlingStrategy() {
+    }
 
     /**
      * @return the instance
      */
     public static PreserveErrorsInformationHandlingStrategy getInstance() {
-        if ( instance == null ) {
+        if (instance == null) {
             instance = new PreserveErrorsInformationHandlingStrategy();
         }
         return instance;
@@ -28,15 +29,14 @@ public final class PreserveErrorsInformationHandlingStrategy implements Handling
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
         // In case of a BusinessException, status is in .getStatus() information is in .getErrors()
         if (e instanceof BusinessException be) {
-            return ResponseEntity.status( be.getStatus() )
-                    .body( new ErrorModel(
+            return ResponseEntity.status(be.getStatus())
+                    .body(new ErrorModel(
                             be.getStatus(),
                             be.getErrors()
-                            ));
-        }
-        else { // In case of generic Exceptions, deduce title from status and detail from exception message
+                    ));
+        } else { // In case of generic Exceptions, deduce title from status and detail from exception message
             return ResponseEntity.status(status)
-                    .body( new ErrorModel(
+                    .body(new ErrorModel(
                             status,
                             new Error(null, status.getReasonPhrase(), e.getMessage())
                     ));

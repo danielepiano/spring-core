@@ -9,11 +9,16 @@ import java.util.Set;
 
 /**
  * Body model of an HTTP response, in case of any kind of error.
- * @param _links    useful links about the errors
- * @param status    the synthetic string representation of the response status: fail|error|generic
- * @param errors    the errors found
+ *
+ * @param _links useful links about the errors
+ * @param status the synthetic string representation of the response status: fail|error|generic
+ * @param errors the errors found
  */
-public record ErrorModel(_LinksModel _links, ErrorModelStatus status, Set<Error> errors) {
+public record ErrorModel(
+        _LinksModel _links,
+        ErrorModelStatus status,
+        Set<Error> errors
+) {
     // Without _LinksModel
     // - ErrorModelStatus
     public ErrorModel(ErrorModelStatus status, Set<Error> errors) {

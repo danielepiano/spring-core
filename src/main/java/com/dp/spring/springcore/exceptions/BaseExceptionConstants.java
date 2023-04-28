@@ -18,7 +18,6 @@ public enum BaseExceptionConstants {
     VALIDATION_EXCEPTION("BAD-002", "VALIDATION EXCEPTION", "Field '%s': %s");
 
 
-
     private final String code;
     private final String title;
     private final String detail;

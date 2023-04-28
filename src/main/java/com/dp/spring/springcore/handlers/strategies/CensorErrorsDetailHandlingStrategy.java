@@ -13,13 +13,14 @@ import org.springframework.http.ResponseEntity;
 public final class CensorErrorsDetailHandlingStrategy implements HandlingExceptionStrategy {
     private static CensorErrorsDetailHandlingStrategy instance;
 
-    private CensorErrorsDetailHandlingStrategy() {}
+    private CensorErrorsDetailHandlingStrategy() {
+    }
 
     /**
      * @return the instance
      */
     public static CensorErrorsDetailHandlingStrategy getInstance() {
-        if ( instance == null ) {
+        if (instance == null) {
             instance = new CensorErrorsDetailHandlingStrategy();
         }
         return instance;
@@ -29,15 +30,14 @@ public final class CensorErrorsDetailHandlingStrategy implements HandlingExcepti
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
         // In case of a BusinessException, status is in .getStatus() information is in .getErrors()
         if (e instanceof BusinessException be) {
-            return ResponseEntity.status( be.getStatus() )
-                    .body( new ErrorModel(
+            return ResponseEntity.status(be.getStatus())
+                    .body(new ErrorModel(
                             be.getStatus(),
                             be.getErrors()
                     ));
-        }
-        else { // In case of generic Exceptions, use the given status
+        } else { // In case of generic Exceptions, use the given status
             return ResponseEntity.status(status)
-                    .body( new ErrorModel(
+                    .body(new ErrorModel(
                             status,
                             new Error(
                                     null,

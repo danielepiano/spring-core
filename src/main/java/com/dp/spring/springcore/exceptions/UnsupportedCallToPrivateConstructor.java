@@ -10,18 +10,18 @@ import com.dp.spring.springcore.model.error.Error;
 public class UnsupportedCallToPrivateConstructor extends InternalServerErrorException {
     public UnsupportedCallToPrivateConstructor() {
         super(new Error(
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getDetail()
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getDetail()
                 )
         );
     }
 
     public UnsupportedCallToPrivateConstructor(Throwable cause) {
         super(new Error(
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),
-                BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getDetail()
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),
+                        BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getDetail()
                 ), cause
         );
     }

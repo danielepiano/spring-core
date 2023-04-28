@@ -14,52 +14,69 @@ import java.io.Serializable;
  * <i>In general, the lifecycle method of a portable application should not invoke EntityManager or Query operations,
  * access other entity instances, or modify relationships within the same persistence context.
  * A lifecycle callback method may modify the non-relationship state of the entity on which it is invoked.</i>I
+ *
  * @param <ID> the entity ID type
  */
 @MappedSuperclass
 @SuperBuilder
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter(AccessLevel.PRIVATE) @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter(AccessLevel.PRIVATE)
+@Accessors(chain = true)
 @EqualsAndHashCode
 public abstract class BaseEntity<ID extends Serializable> {
-    @Id @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected ID id;
 
     @PrePersist
     private void prePersist() {
         this.prePersistCallback();
     }
-    protected void prePersistCallback() {}
+
+    protected void prePersistCallback() {
+    }
 
     @PostPersist
     private void postPersist() {
         this.postPersistCallback();
     }
-    protected void postPersistCallback() {}
+
+    protected void postPersistCallback() {
+    }
 
     @PreUpdate
     private void preUpdate() {
         this.preUpdateCallback();
     }
-    protected void preUpdateCallback() {}
+
+    protected void preUpdateCallback() {
+    }
 
     @PostUpdate
     private void postUpdate() {
         this.postUpdateCallback();
     }
-    protected void postUpdateCallback() {}
+
+    protected void postUpdateCallback() {
+    }
 
     @PreRemove
     private void preRemove() {
         this.preRemoveCallback();
     }
-    protected void preRemoveCallback() {}
+
+    protected void preRemoveCallback() {
+    }
 
     @PostRemove
     private void postRemove() {
         this.postRemoveCallback();
     }
-    protected void postRemoveCallback() {}
+
+    protected void postRemoveCallback() {
+    }
 
 
     @Override

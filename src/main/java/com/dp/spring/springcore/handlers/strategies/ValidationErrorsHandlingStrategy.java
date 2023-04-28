@@ -15,13 +15,14 @@ import java.util.stream.Collectors;
 public final class ValidationErrorsHandlingStrategy implements HandlingExceptionStrategy {
     private static ValidationErrorsHandlingStrategy instance;
 
-    private ValidationErrorsHandlingStrategy() {}
+    private ValidationErrorsHandlingStrategy() {
+    }
 
     /**
      * @return the instance
      */
     public static ValidationErrorsHandlingStrategy getInstance() {
-        if ( instance == null ) {
+        if (instance == null) {
             instance = new ValidationErrorsHandlingStrategy();
         }
         return instance;
@@ -31,15 +32,15 @@ public final class ValidationErrorsHandlingStrategy implements HandlingException
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
         var finalStatus = (status != null) ? status : HttpStatus.BAD_REQUEST;
 
-        if ( e instanceof MethodArgumentNotValidException manve ) {
+        if (e instanceof MethodArgumentNotValidException manve) {
             return ResponseEntity.status(finalStatus)
-                    .body( new ErrorModel(
+                    .body(new ErrorModel(
                             finalStatus,
                             manve.getFieldErrors().stream()
                                     .map(error -> new Error(
                                             BaseExceptionConstants.VALIDATION_EXCEPTION.getCode(),
                                             BaseExceptionConstants.VALIDATION_EXCEPTION.getTitle(),
-                                            String.format( BaseExceptionConstants.VALIDATION_EXCEPTION.getDetail(),
+                                            String.format(BaseExceptionConstants.VALIDATION_EXCEPTION.getDetail(),
                                                     error.getField(), error.getDefaultMessage())
                                     )).collect(Collectors.toSet())
                     ));

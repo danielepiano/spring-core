@@ -12,13 +12,14 @@ import org.springframework.security.access.AccessDeniedException;
 public final class AccessDeniedHandlingStrategy implements HandlingExceptionStrategy {
     private static AccessDeniedHandlingStrategy instance;
 
-    private AccessDeniedHandlingStrategy() {}
+    private AccessDeniedHandlingStrategy() {
+    }
 
     /**
      * @return the instance
      */
     public static AccessDeniedHandlingStrategy getInstance() {
-        if ( instance == null ) {
+        if (instance == null) {
             instance = new AccessDeniedHandlingStrategy();
         }
         return instance;
@@ -28,7 +29,7 @@ public final class AccessDeniedHandlingStrategy implements HandlingExceptionStra
     public ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
         var finalStatus = (status != null) ? status : HttpStatus.FORBIDDEN;
 
-        if ( e instanceof AccessDeniedException ) {
+        if (e instanceof AccessDeniedException) {
             return ResponseEntity.status(finalStatus)
                     .body(new ErrorModel(
                             finalStatus,

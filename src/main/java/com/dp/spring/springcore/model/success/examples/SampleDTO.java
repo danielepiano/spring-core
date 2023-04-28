@@ -6,10 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 
 public class SampleDTO {
     @NotBlank
-    private String stringValue;
+    private final String stringValue;
 
-    @Min(5) @Max(10)
-    private Integer intValue;
+    @Min(5)
+    @Max(10)
+    private final Integer intValue;
 
 
     public SampleDTO(String stringValue, Integer intValue) {

@@ -25,12 +25,16 @@ import java.io.Serializable;
  *     <li>enable @{@link EnableJpaAuditing} in a @{@link Configuration} class</li>
  *     <li>if necessary, define a custom concrete {@link AuditorAware} in order to retrieve principal information</li>
  * </ul>
+ *
  * @param <ID> the entity ID type
  */
 @MappedSuperclass
 @SuperBuilder
-@NoArgsConstructor @AllArgsConstructor
-@Getter @Setter(AccessLevel.PRIVATE) @Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter(AccessLevel.PRIVATE)
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AuditedEntity<ID extends Serializable>

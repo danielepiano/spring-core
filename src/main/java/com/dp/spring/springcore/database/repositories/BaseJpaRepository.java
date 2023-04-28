@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 /**
  * General JPA repository to extend for {@link BaseEntity} database operations.
- * @param <T> the entity type, that should extend {@link BaseEntity}
+ *
+ * @param <T>  the entity type, that should extend {@link BaseEntity}
  * @param <ID> the entity ID type
  */
 @NoRepositoryBean

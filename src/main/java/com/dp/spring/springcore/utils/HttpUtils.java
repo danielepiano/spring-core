@@ -17,6 +17,7 @@ public final class HttpUtils {
 
     /**
      * Get the full URI of the current request.
+     *
      * @return the full request URI
      */
     public static String getFullURIFromCurrentRequest() {
@@ -25,11 +26,12 @@ public final class HttpUtils {
 
     /**
      * Get the relative URI of the current request, including the query string.
+     *
      * @return the relative URI
      */
     public static String getRelativeURIFromCurrentRequest() {
         HttpServletRequest currentRequest = getCurrentRequest();
-        if ( currentRequest != null ){
+        if (currentRequest != null) {
             final String queryString = currentRequest.getQueryString() != null
                     ? "?" + currentRequest.getQueryString()
                     : "";
@@ -40,12 +42,13 @@ public final class HttpUtils {
 
     /**
      * Get the current {@link HttpServletRequest} request.
+     *
      * @return the current request
      */
     public static HttpServletRequest getCurrentRequest() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes instanceof ServletRequestAttributes) {
-            return ((ServletRequestAttributes)requestAttributes).getRequest();
+            return ((ServletRequestAttributes) requestAttributes).getRequest();
         }
         return null;
     }

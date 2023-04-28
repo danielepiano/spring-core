@@ -7,14 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * General JPA repository to extend in order to implement soft-delete methods.
- * @param <T> the entity type, that should extend {@link BaseEntity}
+ *
+ * @param <T>  the entity type, that should extend {@link BaseEntity}
  * @param <ID> the entity ID type
  */
 @NoRepositoryBean
-public interface SoftDeletableJpaRepository<T extends SoftDeletableAuditedEntity<ID>, ID extends Serializable>
+public interface SoftDeleteJpaRepository<T extends SoftDeletableAuditedEntity<ID>, ID extends Serializable>
         extends BaseJpaRepository<T, ID> {
     // --- DEFAULT QUERIES OVERRIDDEN FOR RETRIEVING ACTIVE RESOURCES ---
     /*@Override
@@ -59,12 +61,19 @@ public interface SoftDeletableJpaRepository<T extends SoftDeletableAuditedEntity
 
     // ---  QUERIES FOR SOFT-DELETING RESOURCES ---
     default void softDeleteById(ID id) {
-        this.findById(id).ifPresent(this::softDelete);
+        Optional<T> entity = this.findById(id);
+        if (entity.isPresent()) {
+            T toSoftDelete = entity.get();
+            toSoftDelete.setActive(false);
+            this.save(toSoftDelete);
+        }
     }
 
     default void softDelete(T entity) {
-        entity.setActive(false);
-        this.save(entity);
+        if (this.findById(entity.getId()).isPresent()) {
+            entity.setActive(false);
+            this.save(entity);
+        }
     }
 
     default void softDeleteAllById(Iterable<? extends ID> ids) {

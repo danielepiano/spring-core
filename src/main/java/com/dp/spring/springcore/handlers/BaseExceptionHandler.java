@@ -33,11 +33,12 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Process the appropriate HTTP response according to the set strategy.
+     *
      * @param e the exception caught
      * @return the appropriate response according to the
      */
     private ResponseEntity<ErrorModel> handle(final Exception e, final HttpStatus status) {
-        if ( this.strategy != null  &&  e != null ) {
+        if (this.strategy != null && e != null) {
             return this.strategy.handle(e, status);
         }
         return null;
@@ -45,11 +46,13 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * Generic Exceptions will result in an undefined Internal Server Error.
+     *
      * @param e the exception to handle
      * @return the appropriate response
      */
     @ExceptionHandler
     public ResponseEntity<ErrorModel> handleGenericException(Exception e) {
+        e.printStackTrace();
         this.strategy = CensorAsInternalServerErrorHandlingStrategy.getInstance();
         return this.handle(e, null);
     }
@@ -58,15 +61,15 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
      * {@link BusinessException}s information will be censored if due to server errors.
      * <br>
      * Any error information can still be read through console logs.
+     *
      * @param e the exception to handle
      * @return the appropriate response
      */
     @ExceptionHandler
     public ResponseEntity<ErrorModel> handleBusinessException(BusinessException e) {
-        if ( e.getStatus().is5xxServerError() ) {
+        if (e.getStatus().is5xxServerError()) {
             this.strategy = CensorErrorsDetailHandlingStrategy.getInstance();
-        }
-        else {
+        } else {
             this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
         }
         return this.handle(e, e.getStatus());
@@ -75,6 +78,7 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * {@link AccessDeniedException}s are typically triggered when an authenticated user attempts to access a resource
      * or perform an operation for which they do not have sufficient privileges or permissions.
+     *
      * @param e the exception to handle
      * @return the appropriate response
      */
@@ -89,10 +93,11 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
      * arguments of a method in a Spring MVC controller (e.g. required or not valid fields).
      * <br>
      * Override in order to return a body consistent with {@link ErrorModel}.
-     * @param e the exception to handle
-     * @param headers the response headers up to that moment
+     *
+     * @param e          the exception to handle
+     * @param headers    the response headers up to that moment
      * @param statusCode the status code designated by {@link ResponseEntityExceptionHandler}
-     * @param request the request
+     * @param request    the request
      * @return the appropriate response
      */
     @Override
@@ -102,21 +107,21 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
                                                                   WebRequest request) {
         this.strategy = ValidationErrorsHandlingStrategy.getInstance();
         var response = this.handle(e, HttpStatus.valueOf(statusCode.value()));
-        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, statusCode);
+        return new ResponseEntity<>(response != null ? response.getBody() : null, headers, statusCode);
     }
 
     /**
      * {@link RetryableException}s are typically triggered by temporary problems that could be resolved later,
      * such as microservices connection problems or network problems.
+     *
      * @param e the exception to handle
      * @return the appropriate response
      */
     @ExceptionHandler
     protected ResponseEntity<ErrorModel> handleRetryableException(RetryableException e) {
         this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
-        return this.handle(new ServiceUnavailableException(),  HttpStatus.SERVICE_UNAVAILABLE);
+        return this.handle(new ServiceUnavailableException(), HttpStatus.SERVICE_UNAVAILABLE);
     }
-
 
 
     /**
@@ -124,24 +129,24 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler {
      * finally invoke this method.
      * <br>
      * Override in order to return a body consistent with {@link ErrorModel}.
-     * @param ex the exception to handle
-     * @param body the response body up to that moment
-     * @param headers the response headers up to that moment
+     *
+     * @param ex         the exception to handle
+     * @param body       the response body up to that moment
+     * @param headers    the response headers up to that moment
      * @param statusCode the status code designated by {@link ResponseEntityExceptionHandler}
-     * @param request the request
+     * @param request    the request
      * @return the appropriate response
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatusCode statusCode, WebRequest request) {
         // In case of server errors, do not show detail information
-        if ( statusCode.is5xxServerError() ) {
+        if (statusCode.is5xxServerError()) {
             this.strategy = CensorErrorsDetailHandlingStrategy.getInstance();
-        }
-        else { // In case of client errors, preserve the errors' information
+        } else { // In case of client errors, preserve the errors' information
             this.strategy = PreserveErrorsInformationHandlingStrategy.getInstance();
         }
         var response = this.handle(ex, HttpStatus.valueOf(statusCode.value()));
-        return new ResponseEntity<>( response != null ? response.getBody() : null, headers, statusCode);
+        return new ResponseEntity<>(response != null ? response.getBody() : null, headers, statusCode);
     }
 }

@@ -11,13 +11,14 @@ import org.springframework.http.ResponseEntity;
 public final class CensorAsInternalServerErrorHandlingStrategy implements HandlingExceptionStrategy {
     private static CensorAsInternalServerErrorHandlingStrategy instance;
 
-    private CensorAsInternalServerErrorHandlingStrategy() {}
+    private CensorAsInternalServerErrorHandlingStrategy() {
+    }
 
     /**
      * @return the instance
      */
     public static CensorAsInternalServerErrorHandlingStrategy getInstance() {
-        if ( instance == null ) {
+        if (instance == null) {
             instance = new CensorAsInternalServerErrorHandlingStrategy();
         }
         return instance;
@@ -28,7 +29,7 @@ public final class CensorAsInternalServerErrorHandlingStrategy implements Handli
         var finalStatus = (status != null) ? status : HttpStatus.INTERNAL_SERVER_ERROR;
 
         return ResponseEntity.status(finalStatus)
-                .body( new ErrorModel(
+                .body(new ErrorModel(
                         finalStatus,
                         BaseExceptionConstants.INTERNAL_SERVER_ERROR.buildError()
                 ));
