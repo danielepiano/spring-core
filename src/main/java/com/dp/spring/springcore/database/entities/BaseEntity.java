@@ -24,7 +24,6 @@ import java.io.Serializable;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @Accessors(chain = true)
-@EqualsAndHashCode
 public abstract class BaseEntity<ID extends Serializable> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,6 +80,9 @@ public abstract class BaseEntity<ID extends Serializable> {
 
     @Override
     public String toString() {
-        return "id=" + id;
+        return new StringBuilder()
+                .append(getClass().getSimpleName()).append("(")
+                .append("id = ").append(id)
+                .append(")").toString();
     }
 }

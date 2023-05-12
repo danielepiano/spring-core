@@ -1,6 +1,5 @@
 package com.dp.spring.springcore.database.entities;
 
-import com.dp.spring.springcore.database.annotations.ActiveEntities;
 import com.dp.spring.springcore.database.repositories.SoftDeleteJpaRepository;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -21,12 +20,12 @@ import java.io.Serializable;
  *     <li>
  *         {@link SoftDeleteJpaRepository}
  *         <br> Pro: you can query inactive entities
- *         <br> Con: you always have to specify the <i>is_active</i> state
+ *         <br> Con: you always have to specify the <i>is_active</i> state if you mostly want to query active records
  *     </li>
  *     <li>
  *         adding to the related-entity class the following annotations:
- *            <br> - <b><i>@{@link ActiveEntities}</i></b>, which is equivalent to <b><i>@{@link Where}(clause = SOFT_DELETE_CLAUSE)</i></b>
- *            <br> - <b><i>@{@link SQLDelete}(sql = "update {tableName} set is_active = false where id = ?")</i></b>
+ *            <br> - to query only active records: <b><i>@{@link Where}(clause = SOFT_DELETE_CLAUSE)</i></b>
+ *            <br> - to mark as inactive INSTEAD of deleting: <b><i>@{@link SQLDelete}(sql = "update {tableName} set is_active = false where id = ?")</i></b>
  *         <br> Pro: a where clause is applied so that you don't ever have to repeat the active state for every query
  *         <br> Con: you can't query inactive entities
  *     </li>
@@ -41,7 +40,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
 public abstract class SoftDeletableAuditedEntity<ID extends Serializable> extends AuditedEntity<ID> {
     public static final String SOFT_DELETE_CLAUSE = "is_active IS true";
 
@@ -53,7 +51,14 @@ public abstract class SoftDeletableAuditedEntity<ID extends Serializable> extend
 
     @Override
     public String toString() {
-        return super.toString()
-                + ", active=" + active;
+        return new StringBuilder()
+                .append(getClass().getSimpleName()).append("(")
+                .append("id = ").append(id).append(", ")
+                .append("createdBy = ").append(createdBy).append(", ")
+                .append("createdDate = ").append(createdDate).append(", ")
+                .append("lastModifiedBy = ").append(lastModifiedBy).append(", ")
+                .append("lastModifiedDate = ").append(lastModifiedDate).append(", ")
+                .append("active = ").append(active)
+                .append(")").toString();
     }
 }
