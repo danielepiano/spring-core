@@ -80,9 +80,8 @@ public abstract class BaseEntity<ID extends Serializable> {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(getClass().getSimpleName()).append("(")
-                .append("id = ").append(id)
-                .append(")").toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id +
+                ")";
     }
 }

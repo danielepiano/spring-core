@@ -51,14 +51,13 @@ public abstract class SoftDeletableAuditedEntity<ID extends Serializable> extend
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(getClass().getSimpleName()).append("(")
-                .append("id = ").append(id).append(", ")
-                .append("createdBy = ").append(createdBy).append(", ")
-                .append("createdDate = ").append(createdDate).append(", ")
-                .append("lastModifiedBy = ").append(lastModifiedBy).append(", ")
-                .append("lastModifiedDate = ").append(lastModifiedDate).append(", ")
-                .append("active = ").append(active)
-                .append(")").toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "createdBy = " + createdBy + ", " +
+                "createdDate = " + createdDate + ", " +
+                "lastModifiedBy = " + lastModifiedBy + ", " +
+                "lastModifiedDate = " + lastModifiedDate + ", " +
+                "active = " + active +
+                ")";
     }
 }

@@ -57,13 +57,12 @@ public abstract class AuditedEntity<ID extends Serializable>
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(getClass().getSimpleName()).append("(")
-                .append("id = ").append(id).append(", ")
-                .append("createdBy = ").append(createdBy).append(", ")
-                .append("createdDate = ").append(createdDate).append(", ")
-                .append("lastModifiedBy = ").append(lastModifiedBy).append(", ")
-                .append("lastModifiedDate = ").append(lastModifiedDate)
-                .append(")").toString();
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "createdBy = " + createdBy + ", " +
+                "createdDate = " + createdDate + ", " +
+                "lastModifiedBy = " + lastModifiedBy + ", " +
+                "lastModifiedDate = " + lastModifiedDate +
+                ")";
     }
 }
