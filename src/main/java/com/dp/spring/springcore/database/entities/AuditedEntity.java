@@ -51,7 +51,7 @@ public abstract class AuditedEntity<ID extends Serializable>
     protected String lastModifiedBy;
 
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "last_modified_date", nullable = false)
     protected long lastModifiedDate;
 
 
