@@ -7,8 +7,8 @@ import com.dp.spring.springcore.model.error.Error;
  * <br>
  * E.g. you should not instantiate a utility class having a private method.
  */
-public class UnsupportedCallToPrivateConstructor extends InternalServerErrorException {
-    public UnsupportedCallToPrivateConstructor() {
+public class UnsupportedCallToPrivateConstructorException extends InternalServerErrorException {
+    public UnsupportedCallToPrivateConstructorException() {
         super(new Error(
                         BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
                         BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),
@@ -17,7 +17,7 @@ public class UnsupportedCallToPrivateConstructor extends InternalServerErrorExce
         );
     }
 
-    public UnsupportedCallToPrivateConstructor(Throwable cause) {
+    public UnsupportedCallToPrivateConstructorException(Throwable cause) {
         super(new Error(
                         BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getCode(),
                         BaseExceptionConstants.UNSUPPORTED_CALL_TO_PRIVATE_CONSTRUCTOR.getTitle(),

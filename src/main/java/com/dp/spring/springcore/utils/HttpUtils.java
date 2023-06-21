@@ -1,6 +1,6 @@
 package com.dp.spring.springcore.utils;
 
-import com.dp.spring.springcore.exceptions.UnsupportedCallToPrivateConstructor;
+import com.dp.spring.springcore.exceptions.UnsupportedCallToPrivateConstructorException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 public final class HttpUtils {
     private HttpUtils() {
-        throw new UnsupportedCallToPrivateConstructor();
+        throw new UnsupportedCallToPrivateConstructorException();
     }
 
     /**
